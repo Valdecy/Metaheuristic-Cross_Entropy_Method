@@ -44,6 +44,7 @@ def guess_std_calc(guess):
 # Function: Generate Samples
 def generate_samples(guess, guess_mean, guess_std, min_values = [-5,-5], max_values = [5,5], k_samples = 2):
     guess_sample = guess.copy(deep = True)
+    guess_sample = guess_sample.sort_values(by = 'f(x)')
     for i in range(k_samples, guess.shape[0]):
         for j in range(0, len(min_values)):
              guess_sample.iloc[i,j] = np.clip(np.random.normal(guess_mean.iloc[0,j], guess_std.iloc[0,j], 1)[0], min_values[j], max_values[j])
@@ -68,7 +69,6 @@ def cross_entropy_method(n = 5, min_values = [-5,-5], max_values = [5,5], iterat
     count = 0
     while (count < iterations):
         print("Iteration = ", count, " f(x) = ", best[-1])
-        guess = guess.sort_values(by = 'f(x)')
         guess = generate_samples(guess, guess_mean, guess_std, min_values = min_values, max_values =  max_values, k_samples = k_samples)
         guess_mean, guess_std = update_distribution(guess, guess_mean, guess_std, learning_rate = learning_rate, k_samples = k_samples)
         if (best[-1] > guess.iloc[guess['f(x)'].idxmin(),:][-1]):
