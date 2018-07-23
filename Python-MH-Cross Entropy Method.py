@@ -45,7 +45,6 @@ def guess_std_calc(guess):
 def generate_samples(guess, guess_mean, guess_std, min_values = [-5,-5], max_values = [5,5], k_samples = 2):
     guess_sample = guess.copy(deep = True)
     guess_sample = guess_sample.sort_values(by = 'f(x)')
-    #guess_sample.iloc[0,:] = guess.iloc[guess['f(x)'].idxmin(),:] # elite solution exported to next generation
     for i in range(k_samples, guess.shape[0]):
         for j in range(0, len(min_values)):
              guess_sample.iloc[i,j] = np.clip(np.random.normal(guess_mean.iloc[0,j], guess_std.iloc[0,j], 1)[0], min_values[j], max_values[j])
@@ -80,13 +79,6 @@ def cross_entropy_method(n = 5, min_values = [-5,-5], max_values = [5,5], iterat
     return best
 
 ######################## Part 1 - Usage ####################################
-
-# Function to be Minimized. Solution ->  f(x1, x2) = -1.0316; x1 = 0.0898, x2 = -0.7126 or x1 = -0.0898, x2 = 0.7126
-def target_function (variables_values = [0, 0]):
-    func_value = 4*variables_values[0]**2 - 2.1*variables_values[0]**4 + (1/3)*variables_values[0]**6 + variables_values[0]*variables_values[1] - 4*variables_values[1]**2 + 4*variables_values[1]**4
-    return func_value
-
-cem = cross_entropy_method(n = 50, min_values = [-5,-5], max_values = [5,5], iterations = 100, learning_rate = 0.7, k_samples = 5)
 
 # Function to be Minimized (Rosenbrocks Valley). Solution ->  f(x) = 0; xi = 1
 def target_function(variables_values = [0,0]):
