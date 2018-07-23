@@ -53,6 +53,7 @@ def generate_samples(guess, guess_mean, guess_std, min_values = [-5,-5], max_val
 
 # Function: Update Samples
 def update_distribution(guess, guess_mean, guess_std, learning_rate = 0.7, k_samples = 2):
+    guess = guess.sort_values(by = 'f(x)')
     for j in range(0, guess_mean.shape[1]):
         guess_mean.iloc[0,j] = learning_rate*guess_mean.iloc[0,j] + (1 - learning_rate)*guess.iloc[0:k_samples,j].mean()
         guess_std.iloc[0,j] = learning_rate*guess_std.iloc[0,j] + (1 - learning_rate)*guess.iloc[0:k_samples,j].std()
