@@ -97,4 +97,4 @@ def rosenbrocks_valley(variables_values = [0,0]):
         func_value = func_value + (100 * math.pow((variables_values[i] - math.pow(last_x, 2)), 2)) + math.pow(1 - last_x, 2)
     return func_value
 
-cem = cross_entropy_method(n = 5000, min_values = [-5]*17, max_values = [5]*17, iterations = 10000, learning_rate = 0.9, k_samples = 15, target_function = rosenbrocks_valley)
+cem = cross_entropy_method(n = 5000, min_values = [-5]*3, max_values = [5]*3, iterations = 200, learning_rate = 0.9, k_samples = 15, target_function = rosenbrocks_valley)
